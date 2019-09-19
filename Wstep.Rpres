@@ -1,0 +1,48 @@
+WolnyR
+========================================================
+author: Iwo Augustyński
+date: 
+autosize: true
+font-family: 'Helvetica'
+
+
+Co można zrobić w R?
+=======================================================
+incremental: true
+
+ - wykresy  [esquisse](https://towardsdatascience.com/tableau-esque-drag-and-drop-gui-visualization-in-r-901ee9f2fe3f), [ExPanD](https://jgassen.shinyapps.io/expand_wb/)
+ - wykresy interaktywne <http://rpubs.com/Demolud/budzet_PL>, [plotly](https://plot.ly/r/), [highcharter](http://jkunst.com/highcharter/), [leaflet](https://rstudio.github.io/leaflet/), [dygraphs](https://rstudio.github.io/dygraphs/)
+ - prezentacje
+ - dashboardy <https://iwoaugustynski.shinyapps.io/FSI-dashboard/>
+ - artykuły naukowe (R Notebook); <https://github.com/rstudio/rticles>
+ - książki [bookdown](https://bookdown.org/)
+ - strony internetowe
+   - statyczne <http://iwoaugustynski.ue.wroc.pl/pl/>
+   - dynamiczne <http://iwoaugustynski.ue.wroc.pl/apps/bilanse/>
+ - interaktywne kursy <https://rstudio.github.io/learnr/>
+ - interaktywne zajęcia <https://github.com/joachim-gassen/shiny_croom_exp>
+ 
+
+
+First Slide
+========================================================
+
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Slide With Code
+========================================================
+
+```{r}
+summary(cars)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```
