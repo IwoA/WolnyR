@@ -16,33 +16,29 @@ incremental: true
  - dashboardy <https://iwoaugustynski.shinyapps.io/FSI-dashboard/>
  - artykuły naukowe (R Notebook); <https://github.com/rstudio/rticles>
  - książki [bookdown](https://bookdown.org/)
+
+ 
+Co można zrobić w R (cd)?
+=======================================================
+incremental: true
+
+
  - strony internetowe
    - statyczne <http://iwoaugustynski.ue.wroc.pl/pl/>
    - dynamiczne <http://iwoaugustynski.ue.wroc.pl/apps/bilanse/>
  - interaktywne kursy <https://rstudio.github.io/learnr/>
  - interaktywne zajęcia <https://github.com/joachim-gassen/shiny_croom_exp>
- 
+ - automatyzacja egzaminów <http://www.r-exams.org/>
 
-
-First Slide
+Pakiety (Biblioteki)
 ========================================================
 
-For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+![](https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Flsru.github.io%2Ftv_course%2Fimg%2F01_tidyverse_data_science.png&f=1&nofb=1)
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
 
-Slide With Code
+Pakiety (Biblioteki) cd.
 ========================================================
+<br>
+- [Empirical Finance](https://cran.r-project.org/web/views/Finance.html)
 
-```{r}
-summary(cars)
-```
-
-Slide With Plot
-========================================================
-
-```{r, echo=FALSE}
-plot(cars)
-```
+- [Reproducible Research](https://cran.r-project.org/web/views/ReproducibleResearch.html)
