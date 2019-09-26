@@ -6,6 +6,12 @@ autosize: true
 font-family: 'Helvetica'
 
 
+Strona kursu
+=======================================================
+<br>
+https://github.com/IwoA/WolnyR
+
+
 Co można zrobić w R?
 =======================================================
 incremental: true
@@ -42,3 +48,10 @@ Pakiety (Biblioteki) cd.
 - [Empirical Finance](https://cran.r-project.org/web/views/Finance.html)
 
 - [Reproducible Research](https://cran.r-project.org/web/views/ReproducibleResearch.html)
+
+
+Po pierwsze
+========================================================
+
+- R Notebooks
+- [Swirl](https://swirlstats.com/students.html)
