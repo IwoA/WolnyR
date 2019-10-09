@@ -1,0 +1,42 @@
+---
+title: "Podsumowanie pierwszego spotkania"
+output:
+  html_notebook: default
+  word_document: default
+---
+
+# R Notebook i Markdown
+
+Dane do artykułów najlepiej opracowuje się nie w skryptach R `R Script` tylko w formie `R Notebook` ponieważ umożlwia to wygodne wpisywanie komentarzy, wniosków itp. oraz zapis w różnych formatach: html, pdf czy docx.
+Dzięki stosowaniu składni [Markdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) umożliwia także wygodne formatowanie tekstu.
+
+
+Żeby wygenerować plik Worda w Notebook'u trzeba nacisnąć strałkę obok Preview i wybrać "Knit to Word"
+
+# Wczytywanie danych w R
+
+### Poniższy kod wczytuje tabele z pdf do R.
+
+```{r}
+library(tabulizer) # biblioteka do wczytywania tabel z pdf
+library(knitr) # bibilioteka do robienia ładnych tabel
+
+tabela <- extract_tables(file = "Addicted to dollars.pdf", pages = 57) # wyciąga samo tabelę ale może robić błędy
+# tabela <- extract_areas(file = "Addicted to dollars.pdf", pages = 57) # trzeba zaznaczyć tabelę do wczytania
+tabela1 <- tabela[[1]]  # żeby było wygodniej dalej pracować. Potrzebne wtedy, gdy dane są typu 'list'
+colnames(tabela1) <- c("kraj", "Foreign currency deposits", "Debt", "Composite") #colnames dodaje nazwy kolumn
+kable(tabela1) # robi ładną tabelę
+```
+
+
+
+### Wczytywanie pliku z Excela
+
+```{r}
+library(readxl)
+wst <- read_excel("wst.xlsx", range = "A7:H28", 
+    col_names = FALSE)
+View(wst) # wyświetla dane w formie tabeli takiej jak w Excelu
+
+
+```
