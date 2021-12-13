@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Wstęp
 
-Pisanie skryptów/programów w RStudio. Tworzenie projektów.
+Przedstawione poniżej zadania mają na celu zapoznanie z podstawami analizy danych przy wykorzystaniu R.
 
 
 ## Obiekty i ich typy
@@ -19,7 +19,7 @@ Pisanie skryptów/programów w RStudio. Tworzenie projektów.
 Wszystkie obiekty w R mają swój typ. Większość z nich znacie z matematyki: liczby całkowite, dziesiętne, macierze, wektory itp. 
 O kilku dodatkowych, bardzo często używanych, będzie później.
 
-Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to następująco `a <- 3` (<alt- ->)
+Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to następująco `a <- 3`
 
 Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
 
@@ -27,7 +27,7 @@ Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
 
 ```
 
-Typy obiektów (zmiennych):
+W R wyróżniamy następujące typy obiektów (zmiennych):
 
 - typ liczbowy *numeric* `a <- 3` lub `a<- 3.5` (część dziesiętną oddziela się kropką) - dozwolone normalne operacje matematyczne
 - *character* `a <- "słowo"`  (trzeba pamiętać o cudzysłowach, mogą być " lub ') - do operowania na słowach i wyrazach są specjalne funkcje
@@ -35,9 +35,10 @@ Typy obiektów (zmiennych):
 - typ binarny `TRUE` lub `FALSE` `a <- 4 > 3` - dozwolone są operacje `&` oraz `|` , które oznaczają odpowiednio 'i'  oraz 'lub'
 - typ daty `a <- as.Date("2021/12/14")` 
 
-Poniżej sprawdź typ zmiennej `a` dla każdego przypadku przy pomocy funkcji `class(a)`
+Poniżej sprawdź typ zmiennej `a` dla każdego przypadku przy pomocy funkcji `class(a)` według wzoru:
 ```{r typy-obiektow, exercise=TRUE}
-
+a <- as.Date("2021/12/14")
+class(a)
 ```
 
 Typy zmiennych można zmieniać przy pomocy funkcji `as.character`, `as.numeric` i wspomnianych powyżej `as.factor` i  `as.Date`
@@ -54,7 +55,7 @@ c <- as.numeric(b)
 Do analizy danych wykorzystuje się jednak najczęściej bardziej rozbudowane typy obiektów: wektory, macierze, ramki danych i listy.
 
 Wektory i macierze znacie z matematyki. Charakteryzują się tym, że zawierają dane tego samego typu.
-Wektory tworzy się zazwyczaj funkcją `c()` na przykład `c(1,2,3)` lub `c("jeden", "dwa", "trzy"). 
+Wektory tworzy się zazwyczaj funkcją `c()` na przykład `c(1,2,3)` lub `c("jeden", "dwa", "trzy")`. 
 
 Macierze rzadko się tworzy samemu ponieważ wygodniejsze są ramki danych, które w różnych kolumnach mogą zawierać dane różnych typów.
 
@@ -82,6 +83,8 @@ Praca z listami wychodzi jednak poza ramy kursu podstawowego.
 
 ## Wczytywanie i zapisywanie danych
 
+### Wczytywanie danych
+
 Wczytywać dane do R można na wiele sposobów w zależności od rodzaju pliku źródłowego.
 
 Zanim jednak do tego przejdziemy, chciałem pokazać Wam jak łatwo uzyskać pomoc na temat wybranej funkcji.
@@ -101,41 +104,97 @@ Jak już wiecie, aby zainstalować nową bibliotekę trzeba użyć polecenia `in
 
 Pierwszy sposób jest wygodniejszy bo pozwala ograniczyć wielokrotne wklepywanie czasami długich nazw bibliotek, drugi przydaje się gdy korzystamy z danej funkcji tylko raz w całym skrypcie.
 
+
+Wczytywane tabele są zazwyczaj bardzo duże. Aby się szybko zorientować co zawierają można szybko zerknąć na pierwszych 10 wierszy (`head ()`) lub ostatnich 10 (`tail()`). Bardzo przydatny jest też widok tabeli podobny do tego w Excelu. Służy do tego komenda `View()` pisane dużą literą! To ważne, gdyż R rozpoznaje wielkość liter o czym często zapominają początkujący.
+
+Wczytaj poniższe dane i zobacz co zwierają korzystając z powyższych trzech komend. Na koniec sprawdź typ obiektu `pieniadz`:
 ```{r rio, exercise=TRUE}
 pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx")
 
-```     
+```  
 
-### Operacje na tabelach
+Jak widać tabela nie wygląda najlepiej. Tak często bywa z danymi z Excela.
+Na początek można poprawić komendę wczytującą dane tak, aby pominęła pierwsze dwa wiersze. Dopiszcie w nawiasie, po adresie internetowym, po przecinku `skip = 2` i sprawdźcie jak wygląda początek tabeli.
+
+```{r rio-2, exercise=TRUE}
+pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx")
+
+``` 
+
+```{r rio-2-hint}
+pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx", skip = 2)
+
+``` 
+
+Dzięki biliotekom takim jak `eurostat`, `bdl`, `quantmod`, `dbnomics` można bezpośrednio pobierać dane z Eurostatu, Banku Danych Lokalnych GUS,  dane finansowe oraz dane Banku Światowego, MFW, czy OECD.
+
+### Zapisywanie danych
+
+Dane tabelaryczne zapisuje się najczęściej w dwóch formatach .csv przy pomocy funkcji `write.csv2()`, który można bezpośrednio wczytać do Excela, oraz `save()`, która zapisuje dane w formacie .Rdata. Drugi sposób jest szybszy ale tak zapisane dane można wczytać tylko do R (komendą `load()`).
+
+Oczywiście przy pomocy odpowiednich bibliotek można zapisywać wyniki do prawie wszystkich formatów, w tym formaty danych przestrzennych, json, xml, html, docx, pptx i wiele, wiele innych. Można też bez problemu "podłączyć się" do baz danych SQL. 
 
 
+## Operacje na tabelach
 
-### Quiz
-
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
-
-Some questions to verify that you understand the purposes of various base and recommended R packages:
-
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
-  )
-)
+```{r dane}
+pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx", skip = 2)
+colnames(pieniadz)[1] <- "data"
 ```
+
+Do pracy z danymi tabelarycznymi w R służą dwie biblioteki wchodzące w skład `tidyverse` czyli `dplyr` i `tidyr`. Ściąga z ich obsługi dostępna jest [tutaj](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+
+Najpierw jednak nadajmy nazwę pierwszej kolumnie naszej tabeli. Służy do tego komenda `colnames()`. Ponieważ interesuje nas tylko nazwa pierwszej kolumny to podajemy jej pozycję w nawiasie kwadratowym `[1]`:
+```{r colnames, exercise=TRUE, exercise.setup = "dane"}
+colnames(pieniadz)[1] <- "data"
+head()
+# Ciekawe ile jest wierszy
+nrow()
+```
+
+Operacje na pojedynczych kolumnach najlepiej prowadzić używając symbolu `$` w formacie `nazwa_tabeli$nazwa_kolumny` na przykład 
+```{r dolar, exercise=TRUE, exercise.setup = "dane"}
+pieniadz$`PIENIĄDZ M0` # albo
+pieniadz$data
+
+# sprawdź jakiego typu jest typu jest wybrana kolumna. Czy jest to dalej 'data.frame'?
+```
+
+W pierwszym przypadku zwróćcie uwagę na kształt cudzysłowu. To nie jest " ani ' tylko ` czyli ten znak po lewej od 1 na klawiaturze. O ile dwa pierwsze można stosować alternatywnie, to ten trzeci pełni różne specjalne funkcje, np. taką jak w tym przypadku, czyli pozwala używać polskich liter i spacji w nazwach kolumn. Generalnie nazwy kolumn nie powinny zawierać znaków alfabetów innych niż angielski oraz spacji.
+
+Do wybierania kolumn i wierszy najwygodniej stosować jednak funkcje udostępniane przez bibliotekę `dplyr`
+
+```{r dplyr, exercise=TRUE,  exercise.setup = "dane"}
+library(dplyr)
+# kolumny wybieramy funkcją select:
+m0 <- select(pieniadz, `PIENIĄDZ M0`)
+
+# wiersze wybieramy funkcją filter:
+duzo <- filter(m0, `PIENIĄDZ M0`>20000)
+
+```
+
+Bardzo fajną funkcją udostępnianą przez tę bibliotekę jest `%>%` pozwalająca na łączenie wielu innych funkcji w ciągi operacji:
+
+```{r pipe, exercise=TRUE,  exercise.setup = "dane"}
+library(dplyr)
+
+duzo <- pieniadz %>% select(`PIENIĄDZ M0`) %>% 
+     filter(`PIENIĄDZ M0`>20000)
+
+```
+
+Nie zapomnij sprawdzić wynik wpisując nazwę obiektu :)
+
+
+## Sposoby pracy w R
+
+- Pisanie skryptów/programów w RStudio. 
+- Tworzenie projektów.
 
 ### Źródła
 
-Biblioteka R: [Bookdown](https://bookdown.org/home/archive/)
+Biblioteka z darmowymi książkami o R: [Bookdown](https://bookdown.org/home/archive/)
 
 R po polsku: [Przemysław Biecek](http://biecek.pl/R/)
 
