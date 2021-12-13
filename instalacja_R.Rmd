@@ -1,0 +1,46 @@
+---
+title: "Rozpoczęcie pracy z R"
+author: "Iwo Augustyński"
+date: "9 12 2021"
+output: pdf_document
+---
+
+## Instalacja środowiska R
+
+Aby pracować z R trzeba najpierw go zainstalować. W tym celu należy wejść na stronę <https://www.r-project.org/>. I wybrać kolejno:
+
+![](Instalacja_1.PNG.jpg)
+
+Następnie z listy wybrać najbliższe źródło, na przykład:
+
+![](Instalacja_2.PNG.jpg)
+
+Później trzeba wybrać wersję odpowiednią do posiadanego systemu operacyjnego.
+
+![](Instalacja_3.PNG)
+
+W kolejnym kroku trzeba wybrać pierwszą opcję zarówno przy instalacji po raz pierwszy, jak i przy aktualizacji R'a do nowszej wersji. Oba zaznaczone linki prowadzą do tej samej strony.
+
+![](Instalacja_4.PNG)
+
+I wreszcie można pobrać upragniony plik instalacyjny:
+
+![](Instalacja_5.PNG)
+
+Po zapisaniu na dysku i uruchomieniu zainstalowanie zostanie środowisko R na komputerze.
+
+Niestety w "gołej" wersji jest mało intuicyjne i niewygodne w użytkowaniu. Dlatego w następnej kolejności należy zainstalować program znacznie ułatwiający pracę. Dostępny jest na stronie <https://www.rstudio.com/products/rstudio/download/#download>
+
+![](Instalacja_6.PNG)
+
+Wybieramy ponownie wersję odpowiednią dla naszego systemu operacyjnego, zapisujemy na dysku, uruchamiamy plik instalacyjny. Środowisko R powinno zostać wykryte automatycznie.
+
+"Czyste" środowisko R jest mało wygodne do użycia i jest stosunkowo mało przydatne do zastosowań innych niż podstawowe analizy statystyczne. Swoją popularność zawdzięcza tysiącom dodatków, które pozwalają nie tylko stosować najbardziej wyszukane dostępne metody statystyczne i ekonometryczne, ale również pisać książki, artykuły naukowe, prezentacje, strony internetowe. Umożliwia pozyskiwanie danych bezpośrednio z takich źródeł jak eurostat, GUS, bazy IMF czy Banku Światowego.
+
+Ogromną, niedocenianą zaletą pracy naukowej przy wykorzystaniu R jest tzw. 'reproducibility' czyli powtarzalność analiz. Po długim czasie można łatwo uruchomić skrypt, który na nowo dokona przeliczeń danych, narysuje nowe wykresy na starych jak i na nowych danych. Dzięki temu łatwo dokonać poprawek wymaganych przez recenzentów.
+
+Te ogromne możliwości dają tzw. pakiety (biblioteki) `packages` instalowane komendą `install.packages()`. Aby sprawdzić, czy instalacja R i RStudio przebiegły pomyślnie proszę zainstalować pakiet `tidyverse` wpisując: `install.packages("tidyverse")` w konsoli RStudio. Proszę pamiętać o cudzysłowach.
+
+![](Instalacja_7.PNG)
+
+Ten wstęp też został przygotowany w RStudio.

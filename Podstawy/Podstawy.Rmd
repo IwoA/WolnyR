@@ -1,0 +1,144 @@
+---
+title: "Analiza danych przy wykorzystaniu R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Wstęp
+
+Pisanie skryptów/programów w RStudio. Tworzenie projektów.
+
+
+## Obiekty i ich typy
+
+Wszystkie obiekty w R mają swój typ. Większość z nich znacie z matematyki: liczby całkowite, dziesiętne, macierze, wektory itp. 
+O kilku dodatkowych, bardzo często używanych, będzie później.
+
+Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to następująco `a <- 3` (<alt- ->)
+
+Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
+
+```{r przypisanie-wartosci, exercise=TRUE}
+
+```
+
+Typy obiektów (zmiennych):
+
+- typ liczbowy *numeric* `a <- 3` lub `a<- 3.5` (część dziesiętną oddziela się kropką) - dozwolone normalne operacje matematyczne
+- *character* `a <- "słowo"`  (trzeba pamiętać o cudzysłowach, mogą być " lub ') - do operowania na słowach i wyrazach są specjalne funkcje
+- typ czynnikowy *factor* tworzony komendą `a <- as.factor("dzień")`
+- typ binarny `TRUE` lub `FALSE` `a <- 4 > 3` - dozwolone są operacje `&` oraz `|` , które oznaczają odpowiednio 'i'  oraz 'lub'
+- typ daty `a <- as.Date("2021/12/14")` 
+
+Poniżej sprawdź typ zmiennej `a` dla każdego przypadku przy pomocy funkcji `class(a)`
+```{r typy-obiektow, exercise=TRUE}
+
+```
+
+Typy zmiennych można zmieniać przy pomocy funkcji `as.character`, `as.numeric` i wspomnianych powyżej `as.factor` i  `as.Date`
+
+Sprawdź typ zmiennej `b` i zmień ją na typ liczbowy i przypisz zmiennej `c`. Następnie sprawdź typ nowej zmiennej.
+```{r zmiana-typu, exercise=TRUE, exercise.eval=TRUE}
+b <- "10"
+```
+
+```{r zmiana-typu-hint}
+c <- as.numeric(b)
+```
+
+Do analizy danych wykorzystuje się jednak najczęściej bardziej rozbudowane typy obiektów: wektory, macierze, ramki danych i listy.
+
+Wektory i macierze znacie z matematyki. Charakteryzują się tym, że zawierają dane tego samego typu.
+Wektory tworzy się zazwyczaj funkcją `c()` na przykład `c(1,2,3)` lub `c("jeden", "dwa", "trzy"). 
+
+Macierze rzadko się tworzy samemu ponieważ wygodniejsze są ramki danych, które w różnych kolumnach mogą zawierać dane różnych typów.
+
+Utwórz wektor tekstowy `dni` składający się z nazw dni tygodnia. Następnie przekształć go na typ czynnikowy i zapisz jako zmienną `dni_czyn`
+```{r wektory, exercise=TRUE, exercise.lines=5}
+dni <- 
+     
+     
+dni_czyn
+```
+
+W badaniach najczęściej korzysta się z danych w formacie tabelarycznym, gdzie kolumny mogą zawierać różne typy danych. W R taka tabela nosi nazwę ramki danych `data.frame`. Praktycznie wszystkie funkcje wczytujące dane z plików tworzą właśnie taki typ obiektu. Można go też utworzyć ręcznie.
+
+Sprawdź zawartość obiektu `ramka` wpisując jego nazwę
+
+```{r data-frame, exercise=TRUE,  exercise.eval=TRUE}
+ramka <- data.frame(dni=c("pon", "wt", "śr"), wartosc=c(23, 5.3, 0.5))
+
+```
+
+Na koniec zostały listy. Bardzo przydatny typ obiektu z danymi. Charakteryzuje się tym, że może zawierać wszystkie pozostałe typy danych oraz wszelkie inne obiekty dostępne w R w tym inne listy i wykresy. Tworzy się go komendą `list()` albo `as.list()`. Listę można porównać do szafy z szufladami, w której w każdej szufladzie może być coś innego. Dostęp do szuflady uzyskuje się podając jej numer w nawiasach kwadratowych np. [1].
+Praca z listami wychodzi jednak poza ramy kursu podstawowego.
+
+
+
+## Wczytywanie i zapisywanie danych
+
+Wczytywać dane do R można na wiele sposobów w zależności od rodzaju pliku źródłowego.
+
+Zanim jednak do tego przejdziemy, chciałem pokazać Wam jak łatwo uzyskać pomoc na temat wybranej funkcji.
+
+Wpisz `?read.csv` poniżej
+```{r help, exercise=TRUE}
+```
+
+Jeżeli wpiszesz tę samą komendę w konsoli RStudio, to taka sama pomoc wyświetli się w prawym dolnym panelu.
+Jak można przeczytać, funkcja read.csv służy do wczytywania plików tekstowych, w których przecinki oddzielają kolumny danych. Można w ten sposób wczytywać pliki Excela. W przypadku polskiego Excela trzeba jednak użyć podobnej komendy `read.csv2`, która rozpoznaje średniki jako znaki oddzielające kolumny.
+
+Aby wczytywać bezpośrednio pliki Excela i wielu innych programów, najlepiej użyć bardzo wszechstronnej biblioteki `rio`. 
+Jak już wiecie, aby zainstalować nową bibliotekę trzeba użyć polecenia `install.packages("rio")` w konsoli RStudio. Z zainstalowanych bibliotek można korzystać na dwa sposoby: 
+
+- wczytując biliotekę komendą `library()`
+- poprzedzając nazwę funkcji z biblioteki jej nazwą np. `rio::import()`
+
+Pierwszy sposób jest wygodniejszy bo pozwala ograniczyć wielokrotne wklepywanie czasami długich nazw bibliotek, drugi przydaje się gdy korzystamy z danej funkcji tylko raz w całym skrypcie.
+
+```{r rio, exercise=TRUE}
+pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx")
+
+```     
+
+### Operacje na tabelach
+
+
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
+### Źródła
+
+Biblioteka R: [Bookdown](https://bookdown.org/home/archive/)
+
+R po polsku: [Przemysław Biecek](http://biecek.pl/R/)
+
+### Przykładowa analiza w R
+
+https://mwentz93.shinyapps.io/RTutorWallStreet/
