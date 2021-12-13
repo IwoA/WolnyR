@@ -198,6 +198,8 @@ Biblioteka z darmowymi książkami o R: [Bookdown](https://bookdown.org/home/arc
 
 R po polsku: [Przemysław Biecek](http://biecek.pl/R/)
 
+Lista bibliotek R wg kategorii: https://cran.r-project.org/web/views/
+
 ### Przykładowa analiza w R
 
 https://mwentz93.shinyapps.io/RTutorWallStreet/
