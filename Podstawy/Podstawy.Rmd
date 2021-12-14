@@ -19,7 +19,7 @@ Przedstawione poniżej zadania mają na celu zapoznanie z podstawami analizy dan
 Wszystkie obiekty w R mają swój typ. Większość z nich znacie z matematyki: liczby całkowite, dziesiętne, macierze, wektory itp. 
 O kilku dodatkowych, bardzo często używanych, będzie później.
 
-Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to następująco `a <- 3`
+Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to przy pomocy strzałki: `<-`.
 
 Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
 
@@ -93,19 +93,20 @@ Wpisz `?read.csv` poniżej
 ```{r help, exercise=TRUE}
 ```
 
-Jeżeli wpiszesz tę samą komendę w konsoli RStudio, to taka sama pomoc wyświetli się w prawym dolnym panelu.
-Jak można przeczytać, funkcja read.csv służy do wczytywania plików tekstowych, w których przecinki oddzielają kolumny danych. Można w ten sposób wczytywać pliki Excela. W przypadku polskiego Excela trzeba jednak użyć podobnej komendy `read.csv2`, która rozpoznaje średniki jako znaki oddzielające kolumny.
+Jeżeli wpiszecie tę samą komendę w konsoli RStudio, to taka sama pomoc wyświetli się w prawym dolnym panelu.
+Jak można przeczytać, funkcja read.csv służy do wczytywania plików tekstowych, w których przecinki oddzielają kolumny danych. Można w ten sposób wczytywać pliki Excela. W przypadku polskiego Excela trzeba jednak użyć podobnej komendy `read.csv2`, która rozpoznaje średniki jako znaki oddzielające kolumny i przecinki oddzielające miejsca dziesiętne.
 
 Aby wczytywać bezpośrednio pliki Excela i wielu innych programów, najlepiej użyć bardzo wszechstronnej biblioteki `rio`. 
-Jak już wiecie, aby zainstalować nową bibliotekę trzeba użyć polecenia `install.packages("rio")` w konsoli RStudio. Z zainstalowanych bibliotek można korzystać na dwa sposoby: 
+Jak już wiecie, aby zainstalować nową bibliotekę trzeba użyć polecenia `install.packages("rio")` w konsoli RStudio. 
+Tu taka mała dygresja, z zainstalowanych bibliotek można korzystać na dwa sposoby: 
 
-- wczytując biliotekę komendą `library()`
-- poprzedzając nazwę funkcji z biblioteki jej nazwą np. `rio::import()`
+1. wczytując biliotekę komendą `library()`
+2. poprzedzając nazwę funkcji z biblioteki jej nazwą np. `rio::import()`
 
 Pierwszy sposób jest wygodniejszy bo pozwala ograniczyć wielokrotne wklepywanie czasami długich nazw bibliotek, drugi przydaje się gdy korzystamy z danej funkcji tylko raz w całym skrypcie.
 
 
-Wczytywane tabele są zazwyczaj bardzo duże. Aby się szybko zorientować co zawierają można szybko zerknąć na pierwszych 10 wierszy (`head ()`) lub ostatnich 10 (`tail()`). Bardzo przydatny jest też widok tabeli podobny do tego w Excelu. Służy do tego komenda `View()` pisane dużą literą! To ważne, gdyż R rozpoznaje wielkość liter o czym często zapominają początkujący.
+Wczytywane tabele są zazwyczaj bardzo duże. Aby się szybko zorientować co zawierają można szybko zerknąć na pierwszych 10 wierszy `head ()` lub ostatnich 10 `tail()`. Bardzo przydatny jest też widok tabeli podobny do tego w Excelu. Służy do tego komenda `View()` pisane dużą literą! To ważne, gdyż R rozpoznaje wielkość liter o czym często zapominają początkujący.
 
 Wczytaj poniższe dane i zobacz co zwierają korzystając z powyższych trzech komend. Na koniec sprawdź typ obiektu `pieniadz`:
 ```{r rio, exercise=TRUE}
@@ -126,11 +127,11 @@ pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/m
 
 ``` 
 
-Dzięki biliotekom takim jak `eurostat`, `bdl`, `quantmod`, `dbnomics` można bezpośrednio pobierać dane z Eurostatu, Banku Danych Lokalnych GUS,  dane finansowe oraz dane Banku Światowego, MFW, czy OECD.
+Dzięki biliotekom takim jak `eurostat`, `bdl`, `quantmod`, `dbnomics` można bezpośrednio pobierać dane z Eurostatu, Banku Danych Lokalnych GUS,  dane finansowe oraz dane Banku Światowego, MFW, czy OECD. Praktycznie nie ma takiego formatu danych, którego nie da się odczytać i zapisać w R.
 
 ### Zapisywanie danych
 
-Dane tabelaryczne zapisuje się najczęściej w dwóch formatach .csv przy pomocy funkcji `write.csv2()`, który można bezpośrednio wczytać do Excela, oraz `save()`, która zapisuje dane w formacie .Rdata. Drugi sposób jest szybszy ale tak zapisane dane można wczytać tylko do R (komendą `load()`).
+Dane tabelaryczne zapisuje się najczęściej w dwóch formatach .csv przy pomocy funkcji `write.csv2()`, który można bezpośrednio wczytać do Excela, oraz `save()` wraz z jego odmianą `saveRDS`, która zapisuje dane w formacie .Rdata. Drugi sposób jest szybszy ale tak zapisane dane można wczytać tylko do R (komendą `load()` lub 'readRDS`).
 
 Oczywiście przy pomocy odpowiednich bibliotek można zapisywać wyniki do prawie wszystkich formatów, w tym formaty danych przestrzennych, json, xml, html, docx, pptx i wiele, wiele innych. Można też bez problemu "podłączyć się" do baz danych SQL. 
 
@@ -142,14 +143,14 @@ pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/m
 colnames(pieniadz)[1] <- "data"
 ```
 
-Do pracy z danymi tabelarycznymi w R służą dwie biblioteki wchodzące w skład `tidyverse` czyli `dplyr` i `tidyr`. Ściąga z ich obsługi dostępna jest [tutaj](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+Do pracy z danymi tabelarycznymi w R służą dwie biblioteki wchodzące w skład `tidyverse` czyli `dplyr` i `tidyr`. Ściąga z ich obsługi dostępna jest [tutaj](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf).
 
 Najpierw jednak nadajmy nazwę pierwszej kolumnie naszej tabeli. Służy do tego komenda `colnames()`. Ponieważ interesuje nas tylko nazwa pierwszej kolumny to podajemy jej pozycję w nawiasie kwadratowym `[1]`:
 ```{r colnames, exercise=TRUE, exercise.setup = "dane"}
 colnames(pieniadz)[1] <- "data"
-head()
+#head()
 # Ciekawe ile jest wierszy
-nrow()
+#nrow()
 ```
 
 Operacje na pojedynczych kolumnach najlepiej prowadzić używając symbolu `$` w formacie `nazwa_tabeli$nazwa_kolumny` na przykład 
@@ -160,7 +161,7 @@ pieniadz$data
 # sprawdź jakiego typu jest typu jest wybrana kolumna. Czy jest to dalej 'data.frame'?
 ```
 
-W pierwszym przypadku zwróćcie uwagę na kształt cudzysłowu. To nie jest " ani ' tylko ` czyli ten znak po lewej od 1 na klawiaturze. O ile dwa pierwsze można stosować alternatywnie, to ten trzeci pełni różne specjalne funkcje, np. taką jak w tym przypadku, czyli pozwala używać polskich liter i spacji w nazwach kolumn. Generalnie nazwy kolumn nie powinny zawierać znaków alfabetów innych niż angielski oraz spacji.
+W pierwszym przypadku zwróćcie uwagę na kształt cudzysłowu. To nie jest " ani ' tylko ` czyli ten znak po lewej od 1 na klawiaturze. O ile dwa pierwsze można stosować alternatywnie, to ten trzeci pełni różne specjalne funkcje, np. taką jak w tym przypadku, czyli pozwala używać polskich liter i spacji w nazwach kolumn. Generalnie nazwy kolumn nie powinny zawierać znaków alfabetów innych niż angielski, znaków specjalnych w tym spacji.
 
 Do wybierania kolumn i wierszy najwygodniej stosować jednak funkcje udostępniane przez bibliotekę `dplyr`
 
@@ -186,6 +187,25 @@ duzo <- pieniadz %>% select(`PIENIĄDZ M0`) %>%
 
 Nie zapomnij sprawdzić wynik wpisując nazwę obiektu :)
 
+Na potrzeby nauki R ma kilka wbudowanych zestawów danych. My użyjemy tabeli `mtcars` do ćwiczenia operacji na tabelach.
+Korzystając ze ściągi proszę sprawdzić efekty następujących działań:
+1. `summarise`
+2. `group_by` i `summarise`
+3. `filter`
+4. `distinct`
+5. wariantów `slice`
+6. `arrange`
+7. `select` - ta funkcja pokazuje pełnię swoich możliwości przy uzupełnieniu o `ends_with`, `starts_with` czy `contains` 
+8. `relocate`
+9. `across` (nie występuje samodzielnie)
+10. `mutate`
+11. `rename`
+
+```{r mtcars, exercise=TRUE,  exercise.setup = "dane"}
+library(dplyr)
+mtcars
+
+```
 
 ## Sposoby pracy w R
 
