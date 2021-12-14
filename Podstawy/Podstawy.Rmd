@@ -2,6 +2,9 @@
 title: "Analiza danych przy wykorzystaniu R"
 output: learnr::tutorial
 runtime: shiny_prerendered
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -11,15 +14,17 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Wstęp
 
-Przedstawione poniżej zadania mają na celu zapoznanie z podstawami analizy danych przy wykorzystaniu R.
-
+Przedstawione poniżej zadania mają na celu zapoznanie z podstawami
+analizy danych przy wykorzystaniu R.
 
 ## Obiekty i ich typy
 
-Wszystkie obiekty w R mają swój typ. Większość z nich znacie z matematyki: liczby całkowite, dziesiętne, macierze, wektory itp. 
-O kilku dodatkowych, bardzo często używanych, będzie później.
+Wszystkie obiekty w R mają swój typ. Większość z nich znacie z
+matematyki: liczby całkowite, dziesiętne, macierze, wektory itp. O kilku
+dodatkowych, bardzo często używanych, będzie później.
 
-Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R robi się to przy pomocy strzałki: `<-`.
+Zacząć należy jednak od tego, jak przypisać zmiennej jakąś wartość. W R
+robi się to przy pomocy strzałki: `<-`.
 
 Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
 
@@ -29,21 +34,29 @@ Poniżej wpisz `a <- 3` a następnie `a`, żeby sprawdzić wynik operacji.
 
 W R wyróżniamy następujące typy obiektów (zmiennych):
 
-- typ liczbowy *numeric* `a <- 3` lub `a<- 3.5` (część dziesiętną oddziela się kropką) - dozwolone normalne operacje matematyczne
-- *character* `a <- "słowo"`  (trzeba pamiętać o cudzysłowach, mogą być " lub ') - do operowania na słowach i wyrazach są specjalne funkcje
-- typ czynnikowy *factor* tworzony komendą `a <- as.factor("dzień")`
-- typ binarny `TRUE` lub `FALSE` `a <- 4 > 3` - dozwolone są operacje `&` oraz `|` , które oznaczają odpowiednio 'i'  oraz 'lub'
-- typ daty `a <- as.Date("2021/12/14")` 
+-   typ liczbowy *numeric* `a <- 3` lub `a<- 3.5` (część dziesiętną
+    oddziela się kropką) - dozwolone normalne operacje matematyczne
+-   *character* `a <- "słowo"` (trzeba pamiętać o cudzysłowach, mogą być
+    " lub ') - do operowania na słowach i wyrazach są specjalne funkcje
+-   typ czynnikowy *factor* tworzony komendą `a <- as.factor("dzień")`
+-   typ binarny `TRUE` lub `FALSE` `a <- 4 > 3` - dozwolone są operacje
+    `&` oraz `|` , które oznaczają odpowiednio 'i' oraz 'lub'
+-   typ daty `a <- as.Date("2021/12/14")`
 
-Poniżej sprawdź typ zmiennej `a` dla każdego przypadku przy pomocy funkcji `class(a)` według wzoru:
+Poniżej sprawdź typ zmiennej `a` dla każdego przypadku przy pomocy
+funkcji `class(a)` według wzoru:
+
 ```{r typy-obiektow, exercise=TRUE}
 a <- as.Date("2021/12/14")
 class(a)
 ```
 
-Typy zmiennych można zmieniać przy pomocy funkcji `as.character`, `as.numeric` i wspomnianych powyżej `as.factor` i  `as.Date`
+Typy zmiennych można zmieniać przy pomocy funkcji `as.character`,
+`as.numeric` i wspomnianych powyżej `as.factor` i `as.Date`
 
-Sprawdź typ zmiennej `b` i zmień ją na typ liczbowy i przypisz zmiennej `c`. Następnie sprawdź typ nowej zmiennej.
+Sprawdź typ zmiennej `b` i zmień ją na typ liczbowy i przypisz zmiennej
+`c`. Następnie sprawdź typ nowej zmiennej.
+
 ```{r zmiana-typu, exercise=TRUE, exercise.eval=TRUE}
 b <- "10"
 ```
@@ -52,14 +65,20 @@ b <- "10"
 c <- as.numeric(b)
 ```
 
-Do analizy danych wykorzystuje się jednak najczęściej bardziej rozbudowane typy obiektów: wektory, macierze, ramki danych i listy.
+Do analizy danych wykorzystuje się jednak najczęściej bardziej
+rozbudowane typy obiektów: wektory, macierze, ramki danych i listy.
 
-Wektory i macierze znacie z matematyki. Charakteryzują się tym, że zawierają dane tego samego typu.
-Wektory tworzy się zazwyczaj funkcją `c()` na przykład `c(1,2,3)` lub `c("jeden", "dwa", "trzy")`. 
+Wektory i macierze znacie z matematyki. Charakteryzują się tym, że
+zawierają dane tego samego typu. Wektory tworzy się zazwyczaj funkcją
+`c()` na przykład `c(1,2,3)` lub `c("jeden", "dwa", "trzy")`.
 
-Macierze rzadko się tworzy samemu ponieważ wygodniejsze są ramki danych, które w różnych kolumnach mogą zawierać dane różnych typów.
+Macierze rzadko się tworzy samemu ponieważ wygodniejsze są ramki danych,
+które w różnych kolumnach mogą zawierać dane różnych typów.
 
-Utwórz wektor tekstowy `dni` składający się z nazw dni tygodnia. Następnie przekształć go na typ czynnikowy i zapisz jako zmienną `dni_czyn`
+Utwórz wektor tekstowy `dni` składający się z nazw dni tygodnia.
+Następnie przekształć go na typ czynnikowy i zapisz jako zmienną
+`dni_czyn`
+
 ```{r wektory, exercise=TRUE, exercise.lines=5}
 dni <- 
      
@@ -67,7 +86,11 @@ dni <-
 dni_czyn
 ```
 
-W badaniach najczęściej korzysta się z danych w formacie tabelarycznym, gdzie kolumny mogą zawierać różne typy danych. W R taka tabela nosi nazwę ramki danych `data.frame`. Praktycznie wszystkie funkcje wczytujące dane z plików tworzą właśnie taki typ obiektu. Można go też utworzyć ręcznie.
+W badaniach najczęściej korzysta się z danych w formacie tabelarycznym,
+gdzie kolumny mogą zawierać różne typy danych. W R taka tabela nosi
+nazwę ramki danych `data.frame`. Praktycznie wszystkie funkcje
+wczytujące dane z plików tworzą właśnie taki typ obiektu. Można go też
+utworzyć ręcznie.
 
 Sprawdź zawartość obiektu `ramka` wpisując jego nazwę
 
@@ -76,65 +99,101 @@ ramka <- data.frame(dni=c("pon", "wt", "śr"), wartosc=c(23, 5.3, 0.5))
 
 ```
 
-Na koniec zostały listy. Bardzo przydatny typ obiektu z danymi. Charakteryzuje się tym, że może zawierać wszystkie pozostałe typy danych oraz wszelkie inne obiekty dostępne w R w tym inne listy i wykresy. Tworzy się go komendą `list()` albo `as.list()`. Listę można porównać do szafy z szufladami, w której w każdej szufladzie może być coś innego. Dostęp do szuflady uzyskuje się podając jej numer w nawiasach kwadratowych np. [1].
-Praca z listami wychodzi jednak poza ramy kursu podstawowego.
-
-
+Na koniec zostały listy. Bardzo przydatny typ obiektu z danymi.
+Charakteryzuje się tym, że może zawierać wszystkie pozostałe typy danych
+oraz wszelkie inne obiekty dostępne w R w tym inne listy i wykresy.
+Tworzy się go komendą `list()` albo `as.list()`. Listę można porównać do
+szafy z szufladami, w której w każdej szufladzie może być coś innego.
+Dostęp do szuflady uzyskuje się podając jej numer w nawiasach
+kwadratowych np. \[1\]. Praca z listami wychodzi jednak poza ramy kursu
+podstawowego.
 
 ## Wczytywanie i zapisywanie danych
 
 ### Wczytywanie danych
 
-Wczytywać dane do R można na wiele sposobów w zależności od rodzaju pliku źródłowego.
+Wczytywać dane do R można na wiele sposobów w zależności od rodzaju
+pliku źródłowego.
 
-Zanim jednak do tego przejdziemy, chciałem pokazać Wam jak łatwo uzyskać pomoc na temat wybranej funkcji.
+Zanim jednak do tego przejdziemy, chciałem pokazać Wam jak łatwo uzyskać
+pomoc na temat wybranej funkcji.
 
 Wpisz `?read.csv` poniżej
+
 ```{r help, exercise=TRUE}
 ```
 
-Jeżeli wpiszecie tę samą komendę w konsoli RStudio, to taka sama pomoc wyświetli się w prawym dolnym panelu.
-Jak można przeczytać, funkcja read.csv służy do wczytywania plików tekstowych, w których przecinki oddzielają kolumny danych. Można w ten sposób wczytywać pliki Excela. W przypadku polskiego Excela trzeba jednak użyć podobnej komendy `read.csv2`, która rozpoznaje średniki jako znaki oddzielające kolumny i przecinki oddzielające miejsca dziesiętne.
+Jeżeli wpiszecie tę samą komendę w konsoli RStudio, to taka sama pomoc
+wyświetli się w prawym dolnym panelu. Jak można przeczytać, funkcja
+read.csv służy do wczytywania plików tekstowych, w których przecinki
+oddzielają kolumny danych. Można w ten sposób wczytywać pliki Excela. W
+przypadku polskiego Excela trzeba jednak użyć podobnej komendy
+`read.csv2`, która rozpoznaje średniki jako znaki oddzielające kolumny i
+przecinki oddzielające miejsca dziesiętne.
 
-Aby wczytywać bezpośrednio pliki Excela i wielu innych programów, najlepiej użyć bardzo wszechstronnej biblioteki `rio`. 
-Jak już wiecie, aby zainstalować nową bibliotekę trzeba użyć polecenia `install.packages("rio")` w konsoli RStudio. 
-Tu taka mała dygresja, z zainstalowanych bibliotek można korzystać na dwa sposoby: 
+Aby wczytywać bezpośrednio pliki Excela i wielu innych programów,
+najlepiej użyć bardzo wszechstronnej biblioteki `rio`. Jak już wiecie,
+aby zainstalować nową bibliotekę trzeba użyć polecenia
+`install.packages("rio")` w konsoli RStudio. Tu taka mała dygresja, z
+zainstalowanych bibliotek można korzystać na dwa sposoby:
 
-1. wczytując biliotekę komendą `library()`
-2. poprzedzając nazwę funkcji z biblioteki jej nazwą np. `rio::import()`
+1.  wczytując biliotekę komendą `library()`
+2.  poprzedzając nazwę funkcji z biblioteki jej nazwą np.
+    `rio::import()`
 
-Pierwszy sposób jest wygodniejszy bo pozwala ograniczyć wielokrotne wklepywanie czasami długich nazw bibliotek, drugi przydaje się gdy korzystamy z danej funkcji tylko raz w całym skrypcie.
+Pierwszy sposób jest wygodniejszy bo pozwala ograniczyć wielokrotne
+wklepywanie czasami długich nazw bibliotek, drugi przydaje się gdy
+korzystamy z danej funkcji tylko raz w całym skrypcie.
 
+Wczytywane tabele są zazwyczaj bardzo duże. Aby się szybko zorientować
+co zawierają można szybko zerknąć na pierwszych 10 wierszy `head ()` lub
+ostatnich 10 `tail()`. Bardzo przydatny jest też widok tabeli podobny do
+tego w Excelu. Służy do tego komenda `View()` pisane dużą literą! To
+ważne, gdyż R rozpoznaje wielkość liter o czym często zapominają
+początkujący.
 
-Wczytywane tabele są zazwyczaj bardzo duże. Aby się szybko zorientować co zawierają można szybko zerknąć na pierwszych 10 wierszy `head ()` lub ostatnich 10 `tail()`. Bardzo przydatny jest też widok tabeli podobny do tego w Excelu. Służy do tego komenda `View()` pisane dużą literą! To ważne, gdyż R rozpoznaje wielkość liter o czym często zapominają początkujący.
+Wczytaj poniższe dane i zobacz co zwierają korzystając z powyższych
+trzech komend. Na koniec sprawdź typ obiektu `pieniadz`:
 
-Wczytaj poniższe dane i zobacz co zwierają korzystając z powyższych trzech komend. Na koniec sprawdź typ obiektu `pieniadz`:
 ```{r rio, exercise=TRUE}
 pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx")
 
-```  
+```
 
-Jak widać tabela nie wygląda najlepiej. Tak często bywa z danymi z Excela.
-Na początek można poprawić komendę wczytującą dane tak, aby pominęła pierwsze dwa wiersze. Dopiszcie w nawiasie, po adresie internetowym, po przecinku `skip = 2` i sprawdźcie jak wygląda początek tabeli.
+Jak widać tabela nie wygląda najlepiej. Tak często bywa z danymi z
+Excela. Na początek można poprawić komendę wczytującą dane tak, aby
+pominęła pierwsze dwa wiersze. Dopiszcie w nawiasie, po adresie
+internetowym, po przecinku `skip = 2` i sprawdźcie jak wygląda początek
+tabeli.
 
 ```{r rio-2, exercise=TRUE}
 pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx")
 
-``` 
+```
 
 ```{r rio-2-hint}
 pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/miarypieniadza_nowe.xlsx", skip = 2)
 
-``` 
+```
 
-Dzięki biliotekom takim jak `eurostat`, `bdl`, `quantmod`, `dbnomics` można bezpośrednio pobierać dane z Eurostatu, Banku Danych Lokalnych GUS,  dane finansowe oraz dane Banku Światowego, MFW, czy OECD. Praktycznie nie ma takiego formatu danych, którego nie da się odczytać i zapisać w R.
+Dzięki biliotekom takim jak `eurostat`, `bdl`, `quantmod`, `dbnomics`
+można bezpośrednio pobierać dane z Eurostatu, Banku Danych Lokalnych
+GUS, dane finansowe oraz dane Banku Światowego, MFW, czy OECD.
+Praktycznie nie ma takiego formatu danych, którego nie da się odczytać i
+zapisać w R.
 
 ### Zapisywanie danych
 
-Dane tabelaryczne zapisuje się najczęściej w dwóch formatach .csv przy pomocy funkcji `write.csv2()`, który można bezpośrednio wczytać do Excela, oraz `save()` wraz z jego odmianą `saveRDS`, która zapisuje dane w formacie .Rdata. Drugi sposób jest szybszy ale tak zapisane dane można wczytać tylko do R (komendą `load()` lub 'readRDS`).
+Dane tabelaryczne zapisuje się najczęściej w dwóch formatach .csv przy
+pomocy funkcji `write.csv2()`, który można bezpośrednio wczytać do
+Excela, oraz `save()` wraz z jego odmianą `saveRDS`, która zapisuje dane
+w formacie .Rdata. Drugi sposób jest szybszy ale tak zapisane dane można
+wczytać tylko do R (komendą `load()` lub 'readRDS\`).
 
-Oczywiście przy pomocy odpowiednich bibliotek można zapisywać wyniki do prawie wszystkich formatów, w tym formaty danych przestrzennych, json, xml, html, docx, pptx i wiele, wiele innych. Można też bez problemu "podłączyć się" do baz danych SQL. 
-
+Oczywiście przy pomocy odpowiednich bibliotek można zapisywać wyniki do
+prawie wszystkich formatów, w tym formaty danych przestrzennych, json,
+xml, html, docx, pptx i wiele, wiele innych. Można też bez problemu
+"podłączyć się" do baz danych SQL.
 
 ## Operacje na tabelach
 
@@ -143,9 +202,15 @@ pieniadz <- rio::import("https://www.nbp.pl/statystyka/pieniezna_i_bankowa/dwn/m
 colnames(pieniadz)[1] <- "data"
 ```
 
-Do pracy z danymi tabelarycznymi w R służą dwie biblioteki wchodzące w skład `tidyverse` czyli `dplyr` i `tidyr`. Ściąga z ich obsługi dostępna jest [tutaj](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf).
+Do pracy z danymi tabelarycznymi w R służą dwie biblioteki wchodzące w
+skład `tidyverse` czyli `dplyr` i `tidyr`. Ściąga z ich obsługi dostępna
+jest
+[tutaj](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf).
 
-Najpierw jednak nadajmy nazwę pierwszej kolumnie naszej tabeli. Służy do tego komenda `colnames()`. Ponieważ interesuje nas tylko nazwa pierwszej kolumny to podajemy jej pozycję w nawiasie kwadratowym `[1]`:
+Najpierw jednak nadajmy nazwę pierwszej kolumnie naszej tabeli. Służy do
+tego komenda `colnames()`. Ponieważ interesuje nas tylko nazwa pierwszej
+kolumny to podajemy jej pozycję w nawiasie kwadratowym `[1]`:
+
 ```{r colnames, exercise=TRUE, exercise.setup = "dane"}
 colnames(pieniadz)[1] <- "data"
 #head()
@@ -153,7 +218,9 @@ colnames(pieniadz)[1] <- "data"
 #nrow()
 ```
 
-Operacje na pojedynczych kolumnach najlepiej prowadzić używając symbolu `$` w formacie `nazwa_tabeli$nazwa_kolumny` na przykład 
+Operacje na pojedynczych kolumnach najlepiej prowadzić używając symbolu
+`$` w formacie `nazwa_tabeli$nazwa_kolumny` na przykład
+
 ```{r dolar, exercise=TRUE, exercise.setup = "dane"}
 pieniadz$`PIENIĄDZ M0` # albo
 pieniadz$data
@@ -161,9 +228,16 @@ pieniadz$data
 # sprawdź jakiego typu jest typu jest wybrana kolumna. Czy jest to dalej 'data.frame'?
 ```
 
-W pierwszym przypadku zwróćcie uwagę na kształt cudzysłowu. To nie jest " ani ' tylko ` czyli ten znak po lewej od 1 na klawiaturze. O ile dwa pierwsze można stosować alternatywnie, to ten trzeci pełni różne specjalne funkcje, np. taką jak w tym przypadku, czyli pozwala używać polskich liter i spacji w nazwach kolumn. Generalnie nazwy kolumn nie powinny zawierać znaków alfabetów innych niż angielski, znaków specjalnych w tym spacji.
+W pierwszym przypadku zwróćcie uwagę na kształt cudzysłowu. To nie jest
+" ani ' tylko \` czyli ten znak po lewej od 1 na klawiaturze. O ile dwa
+pierwsze można stosować alternatywnie, to ten trzeci pełni różne
+specjalne funkcje, np. taką jak w tym przypadku, czyli pozwala używać
+polskich liter i spacji w nazwach kolumn. Generalnie nazwy kolumn nie
+powinny zawierać znaków alfabetów innych niż angielski, znaków
+specjalnych w tym spacji.
 
-Do wybierania kolumn i wierszy najwygodniej stosować jednak funkcje udostępniane przez bibliotekę `dplyr`
+Do wybierania kolumn i wierszy najwygodniej stosować jednak funkcje
+udostępniane przez bibliotekę `dplyr`
 
 ```{r dplyr, exercise=TRUE,  exercise.setup = "dane"}
 library(dplyr)
@@ -175,7 +249,8 @@ duzo <- filter(m0, `PIENIĄDZ M0`>20000)
 
 ```
 
-Bardzo fajną funkcją udostępnianą przez tę bibliotekę jest `%>%` pozwalająca na łączenie wielu innych funkcji w ciągi operacji:
+Bardzo fajną funkcją udostępnianą przez tę bibliotekę jest `%>%`
+pozwalająca na łączenie wielu innych funkcji w ciągi operacji:
 
 ```{r pipe, exercise=TRUE,  exercise.setup = "dane"}
 library(dplyr)
@@ -187,18 +262,31 @@ duzo <- pieniadz %>% select(`PIENIĄDZ M0`) %>%
 
 Nie zapomnij sprawdzić wynik wpisując nazwę obiektu :)
 
-Na potrzeby nauki R ma kilka wbudowanych zestawów danych. My użyjemy tabeli `mtcars` do ćwiczenia operacji na tabelach.
-Korzystając ze ściągi proszę sprawdzić efekty następujących działań:
-1. `summarise`
-2. `group_by` i `summarise`
-3. `filter`
-4. `distinct`
-5. wariantów `slice`
-6. `arrange`
-7. `select` - ta funkcja pokazuje pełnię swoich możliwości przy uzupełnieniu o `ends_with`, `starts_with` czy `contains` 
-8. `relocate`
-9. `across` (nie występuje samodzielnie)
+Na potrzeby nauki R ma kilka wbudowanych zestawów danych. My użyjemy
+tabeli `mtcars` do ćwiczenia operacji na tabelach. Korzystając ze ściągi
+proszę sprawdzić efekty następujących działań:
+
+1.  `summarise`
+
+2.  `group_by` i `summarise`
+
+3.  `filter`
+
+4.  `distinct`
+
+5.  wariantów `slice`
+
+6.  `arrange`
+
+7.  `select` - ta funkcja pokazuje pełnię swoich możliwości przy
+    uzupełnieniu o `ends_with`, `starts_with` czy `contains`
+
+8.  `relocate`
+
+9.  `across` (nie występuje samodzielnie)
+
 10. `mutate`
+
 11. `rename`
 
 ```{r mtcars, exercise=TRUE,  exercise.setup = "dane"}
@@ -209,17 +297,20 @@ mtcars
 
 ## Sposoby pracy w R
 
-- Pisanie skryptów/programów w RStudio. 
-- Tworzenie projektów.
+-   Pisanie skryptów/programów w RStudio.
+-   Przydatne skróty klawiaturowe
+-   Rmarkdown
+-   Tworzenie projektów.
 
 ### Źródła
 
-Biblioteka z darmowymi książkami o R: [Bookdown](https://bookdown.org/home/archive/)
+Biblioteka z darmowymi książkami o R:
+[Bookdown](https://bookdown.org/home/archive/)
 
 R po polsku: [Przemysław Biecek](http://biecek.pl/R/)
 
-Lista bibliotek R wg kategorii: https://cran.r-project.org/web/views/
+Lista bibliotek R wg kategorii: <https://cran.r-project.org/web/views/>
 
 ### Przykładowa analiza w R
 
-https://mwentz93.shinyapps.io/RTutorWallStreet/
+<https://mwentz93.shinyapps.io/RTutorWallStreet/>
