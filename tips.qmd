@@ -1,0 +1,57 @@
+---
+title: "Tips for New R Users"
+author: "Iwo Augustyński"
+format: revealjs
+editor: visual
+---
+
+## 1. Use RStudio
+
+## 2. Be careful of syntax
+
+- R is case sensitive (Python as well)
+
+`print()` function is a build-in in R contrary to `Print()` which doesn't exist.
+
+The same applies to variables' names.
+
+- Remember about commas, parentheses, etc.
+
+- Different types of parentheses mean different things.
+
+## 3. Comment your code
+
+It's good for you, for other readers and for future-self.
+
+<br>
+
+You will be surprised how fast you forget what you have written.
+
+## 4. Curate a set of helpful R resources & people
+
+-   Github
+-   Youtube
+-   Blogs
+-   Websites
+-   **stackoverflow.com**
+-   [**Big Book of R**](https://www.bigbookofr.com/)
+
+## 5. Check the date on resources & advice pages
+
+-   Some functions are superseded by something better.
+-   Some packages are no longer maintained
+-   New, better packages replace old ones
+
+## 6. Form a community of practice
+
+Especially useful for learning and doing research
+
+## 7. Don't just follow the recipe
+
+Don't blindly copy old/similar code updating only some values.
+
+## 8. Get feedback on your work
+
+## 9. Don't be overhelmed
+
+
